@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="40" viewBox="0 0 180 40" fill="none">
+  <rect width="40" height="40" rx="10" fill="#8B6B52"/>
+  <path d="M11 20C11 14.477 15.477 10 21 10H29V15H21C18.239 15 16 17.239 16 20C16 22.761 18.239 25 21 25H29V30H21C15.477 30 11 25.523 11 20Z" fill="#F7F3EE"/>
+  <text x="54" y="18" fill="#2C2420" font-family="Arial, sans-serif" font-size="15" font-weight="700">Centricity</text>
+  <text x="54" y="31" fill="#9C8B7D" font-family="Arial, sans-serif" font-size="8" letter-spacing="2">PARTNER PORTAL</text>
+</svg>

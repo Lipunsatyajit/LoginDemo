@@ -1,0 +1,161 @@
+<div class="modal-backdrop" *ngIf="showLoginModal" (click)="closeOnBackdrop($event)">
+  <div class="modal-container login-modal" id="loginModal">
+    <button class="close-btn login-close-btn" type="button" (click)="closeLoginModal()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+
+    <div class="modal-left">
+      <div class="logo-wrap">
+        <img src="/assets/centricity-logo.svg" alt="Centricity Logo" class="logo-img" />
+      </div>
+
+      <h1 class="modal-title">
+        Login To Partner<br />
+        <span>(OneDigital)</span>
+      </h1>
+
+      <div class="tabs">
+        <button class="tab-btn" [class.active]="activeTab === 'password'" (click)="switchTab('password')">
+          Username &amp; Password
+        </button>
+        <button class="tab-btn" [class.active]="activeTab === 'otp'" (click)="switchTab('otp')">
+          OTP On Mobile No.
+        </button>
+      </div>
+
+      <div class="form-section" *ngIf="activeTab === 'password'">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Enter Your Username"
+            [(ngModel)]="username"
+          />
+        </div>
+
+        <div class="input-group">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="form-input"
+            placeholder="Enter Your Password"
+            [(ngModel)]="password"
+          />
+
+          <button class="eye-toggle" type="button" (click)="togglePassword()">
+            <svg
+              *ngIf="!showPassword"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <svg
+              *ngIf="showPassword"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+              />
+              <line x1="1" y1="1" x2="23" y2="23" />
+            </svg>
+          </button>
+        </div>
+
+        <p class="forgot-text">
+          Forgot Username Or Password?
+          <a href="#" class="reset-link" (click)="$event.preventDefault()">RESET</a>
+        </p>
+
+        <button class="btn-login" type="button" (click)="handleLogin()">Login</button>
+
+        <p class="partner-text">
+          Become A Partner?
+          <a href="#" class="join-link" (click)="$event.preventDefault()">JOIN US</a>
+        </p>
+      </div>
+
+      <div class="form-section" *ngIf="activeTab === 'otp'">
+        <div class="input-group">
+          <input
+            type="tel"
+            class="form-input"
+            placeholder="Enter Your Mobile Number"
+            [(ngModel)]="mobileNumber"
+          />
+        </div>
+
+        <button class="btn-login" type="button" (click)="sendOtp()">Send OTP</button>
+
+        <p class="partner-text">
+          Become A Partner?
+          <a href="#" class="join-link" (click)="$event.preventDefault()">JOIN US</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="modal-right">
+      <div class="building-image"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="showOtpModal" (click)="closeOnBackdrop($event)">
+  <div class="modal-container otp-modal" id="otpModal">
+    <button class="close-btn" type="button" (click)="closeOtpModal()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+
+    <div class="otp-content">
+      <h2 class="otp-title">Enter OTP to verify</h2>
+      <p class="otp-subtitle">
+        OTP sent to your number
+        <strong>(xx9087)</strong>
+        linked to
+        <strong>umag&#64;1234</strong>
+        <button class="edit-btn" type="button" (click)="editNumber()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+          </svg>
+        </button>
+      </p>
+
+      <div class="otp-boxes">
+        <input
+          *ngFor="let box of otpBoxes; let i = index"
+          #otpInput
+          type="text"
+          maxlength="1"
+          class="otp-box"
+          [value]="otpValues[i]"
+          (input)="onOtpInput($event, i)"
+          (keydown)="onOtpKeyDown($event, i)"
+          (paste)="onOtpPaste($event)"
+        />
+      </div>
+
+      <button class="btn-submit-otp" type="button" (click)="submitOtp()">Submit OTP</button>
+
+      <p class="resend-text">
+        Didn't receive OTP?
+        <a href="#" class="resend-link" (click)="resendOtp($event)">RESEND</a>
+      </p>
+    </div>
+  </div>
+</div>

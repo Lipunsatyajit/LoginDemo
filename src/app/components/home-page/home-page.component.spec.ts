@@ -20,4 +20,24 @@ describe('HomePageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the home page heading', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Welcome to LoginDemo');
+  });
+
+  it('should render a login button', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Login');
+  });
+
+  it('should open the login popup when the button is clicked', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const button = compiled.querySelector('.btn.btn-primary') as HTMLButtonElement;
+
+    button.click();
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('#loginModal')).not.toBeNull();
+  });
 });

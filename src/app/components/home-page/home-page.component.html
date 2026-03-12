@@ -1,1 +1,16 @@
-<p>home-page works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="/">LoginDemo</a>
+    <button class="btn btn-primary" type="button" (click)="openLoginModal()">Login</button>
+  </div>
+</nav>
+
+<section class="py-5">
+  <div class="container text-center">
+    <h1 class="mb-3">Welcome to LoginDemo</h1>
+    <p class="text-muted mb-4">This is the home page component set as the default route.</p>
+    <button class="btn btn-outline-primary" type="button" (click)="openLoginModal()">Login</button>
+  </div>
+</section>
+
+<app-login></app-login>
